@@ -28,7 +28,7 @@ def load(tsv_path):
     cur  = conn.cursor()
 
     taxa_cache     = {}   # scientific_name → taxon_id
-    locality_cache = {}   # place           → locality_id
+    locality_cache = {}   # locality attributes → locality_id
 
     inserted = 0
     skipped  = 0
@@ -43,8 +43,9 @@ def load(tsv_path):
             year            = row['year'].strip() or None
             discovered_by   = row['discovered_by'].strip() or None
 
+            locality   = row['locality'].strip() or None
             continent       = row['continent'].strip()       or 'Africa'
-            country         = row['country'].strip()         or 'Kenya'
+            country         = row['country'].strip()         or None
             state_province  = row['state_province'].strip()  or None
             region          = row['region'].strip()          or None
             subregion       = row['subregion'].strip()       or None
@@ -66,50 +67,75 @@ def load(tsv_path):
             earliest_stage  = row['earliest_age_or_lowest_stage'].strip()   or None
             latest_stage    = row['latest_age_or_highest_stage'].strip()    or None
             earliest_chronometric_age      = row['earliest_chronometric_age'].strip() or None
+            earliest_chronometric_age_reference_system = row['earliest_chronometric_age_reference_system'].strip() or None
             latest_chronometric_age        = row['latest_chronometric_age'].strip()   or None
+            latest_chronometric_age_reference_system = row['latest_chronometric_age_reference_system'].strip() or None
             verbatim_chronometric_age      = row['verbatim_chronometric_age'].strip() or None
 
+
+
+            locality_key = (
+                locality, continent, country, state_province, region, subregion, place
+            )
             cur.execute("SAVEPOINT load_row")
             added_taxon_key = None
             added_locality_key = None
             try:
                 # ── taxa ──────────────────────────────────────────────────────
                 # Empty scientific_name → taxon_id stays NULL (unidentified specimen)
-                taxon_id = None
-                if scientific_name:
-                    cache_key = (scientific_name, qualifier)
+                cache_key = (scientific_name, qualifier)
+                # Check if the taxon is already in the cache; if not, query the database
+                if cache_key not in taxa_cache:
+                    cur.execute("""
+                        SELECT taxon_id
+                        FROM taxa
+                        WHERE scientific_name = %s
+                        AND identification_qualifier IS NOT DISTINCT FROM %s
+                        ORDER BY taxon_id
+                        LIMIT 1
+                    """, cache_key)
+                    result = cur.fetchone()
 
-                    if cache_key not in taxa_cache:
+                    if result:
+                        taxa_cache[cache_key] = result[0]
+                    else:
                         cur.execute("""
                             INSERT INTO taxa (scientific_name, identification_qualifier)
                             VALUES (%s, %s)
                             RETURNING taxon_id
-                        """, (scientific_name, qualifier))
+                        """, cache_key)
                         taxa_cache[cache_key] = cur.fetchone()[0]
                         added_taxon_key = cache_key
 
-                    taxon_id = taxa_cache[cache_key]
+                taxon_id = taxa_cache[cache_key]
 
                 # ── localities ───────────────────────────────────────────────
-                if place not in locality_cache:
+                if locality_key not in locality_cache:
                     cur.execute("""
-                        INSERT INTO localities (continent, country, state_province, region, subregion, place)
-                        VALUES (%s, %s, %s, %s, %s, %s)
-                        ON CONFLICT DO NOTHING
-                        RETURNING locality_id
-                    """, (continent, country, state_province, region, subregion, place))
+                        SELECT locality_id
+                        FROM localities
+                        WHERE locality = %s
+                          AND continent = %s
+                          AND country = %s
+                          AND state_province IS NOT DISTINCT FROM %s
+                          AND region IS NOT DISTINCT FROM %s
+                          AND subregion IS NOT DISTINCT FROM %s
+                          AND place = %s
+                    """, locality_key)
                     result = cur.fetchone()
                     if result:
-                        locality_cache[place] = result[0]
-                        added_locality_key = place
+                        locality_cache[locality_key] = result[0]
                     else:
-                        cur.execute(
-                            "SELECT locality_id FROM localities WHERE place = %s",
-                            (place,)
-                        )
-                        locality_cache[place] = cur.fetchone()[0]
+                        cur.execute("""
+                            INSERT INTO localities
+                                (locality, continent, country, state_province, region, subregion, place)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s)
+                            RETURNING locality_id
+                        """, locality_key)
+                        locality_cache[locality_key] = cur.fetchone()[0]
+                        added_locality_key = locality_key
 
-                locality_id = locality_cache[place]
+                locality_id = locality_cache[locality_key]
 
                 # ── fossils ──────────────────────────────────────────────────
                 cur.execute("""
@@ -130,10 +156,12 @@ def load(tsv_path):
                         latest_epoch_or_highest_series,
                         earliest_age_or_lowest_stage,
                         latest_age_or_highest_stage,
-                        earliest_chronometric_age, 
+                        earliest_chronometric_age,
+                        earliest_chronometric_age_reference_system,
                         latest_chronometric_age,
+                        latest_chronometric_age_reference_system,
                         verbatim_chronometric_age)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     ON CONFLICT (catalog_number) DO NOTHING
                 """, (catalog_number, 
                       organism_id, 
@@ -148,7 +176,11 @@ def load(tsv_path):
                       earliest_period, latest_period,
                       earliest_epoch, latest_epoch,
                       earliest_stage, latest_stage,
-                      earliest_chronometric_age, latest_chronometric_age, verbatim_chronometric_age))
+                      earliest_chronometric_age,
+                      earliest_chronometric_age_reference_system,
+                      latest_chronometric_age,
+                      latest_chronometric_age_reference_system,
+                      verbatim_chronometric_age))
                 if cur.rowcount:
                     inserted += 1
                 else:
