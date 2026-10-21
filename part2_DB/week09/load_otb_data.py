@@ -22,6 +22,7 @@ Insert order respects foreign key dependencies:
 
 import csv
 import sys
+from datetime import date
 import psycopg2
 from config import DSN
 
@@ -52,12 +53,15 @@ def load(path):
             catalog_number  = row['catalog_number'].strip()
             organism_id     = row['organism_id'].strip() or None
             preparations    = row['preparations'].strip() or None
-            year            = row['year'].strip() or None
+            _year_raw = row['year'].strip()
+            year      = int(_year_raw) if _year_raw else None
             discovered_by   = row['discovered_by'].strip() or None
 
             locality   = row['locality'].strip() or None
             continent       = row['continent'].strip()       or 'Africa'
-            country         = row['country'].strip()         or None
+            country         = row['country'].strip()
+            if not country:
+                raise ValueError(f"country is required but missing for place '{row.get('place','?')}'")
             state_province  = row['state_province'].strip()  or None
             region          = row['region'].strip()          or None
             subregion       = row['subregion'].strip()       or None
@@ -70,7 +74,11 @@ def load(path):
             scientific_name = row['scientific_name'].strip() or None
             qualifier = row['identification_qualifier'].strip() or None
             
-            date_identified = row['date_identified'].strip() or None
+            _date_raw = row['date_identified'].strip()
+            try:
+                date_identified = date.fromisoformat(_date_raw) if _date_raw else None
+            except ValueError:
+                date_identified = None  # non-ISO format; stored as NULL
             verbatim_identification = row['verbatim_identification'].strip() or None
             earliest_period = row['earliest_period_or_lowest_system'].strip() or None
             latest_period   = row['latest_period_or_highest_system'].strip()   or None
