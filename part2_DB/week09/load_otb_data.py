@@ -3,7 +3,10 @@
 load_otb.py — Load OTB fossil data from TSV into PostgreSQL
 
 Usage:
-    python3 load_otb.py otb_fossils.tsv
+    python3 load_otb_data.py otb_fossils.tsv
+    python3 load_otb_data.py otb_fossils.csv
+
+The file format is inferred from the extension (.tsv → tab-delimited, .csv → comma-delimited).
 
 Requires:
     - psycopg2-binary  (pip install psycopg2-binary)
@@ -23,7 +26,16 @@ import psycopg2
 from config import DSN
 
 
-def load(tsv_path):
+def load(path):
+    ext = path.rsplit('.', 1)[-1].lower()
+    if ext == 'csv':
+        delimiter = ','
+    elif ext == 'tsv':
+        delimiter = '\t'
+    else:
+        print(f"Unknown extension '.{ext}' — assuming tab-delimited.")
+        delimiter = '\t'
+
     conn = psycopg2.connect(DSN)
     cur  = conn.cursor()
 
@@ -33,8 +45,8 @@ def load(tsv_path):
     inserted = 0
     skipped  = 0
 
-    with open(tsv_path, newline='', encoding='utf-8') as f:
-        reader = csv.DictReader(f, delimiter='\t')
+    with open(path, newline='', encoding='utf-8') as f:
+        reader = csv.DictReader(f, delimiter=delimiter)
 
         for row in reader:
             catalog_number  = row['catalog_number'].strip()
@@ -204,6 +216,6 @@ def load(tsv_path):
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print("Usage: python3 load_otb.py otb_fossils.tsv")
+        print("Usage: python3 load_otb_data.py <file.tsv|file.csv>")
         sys.exit(1)
     load(sys.argv[1])
