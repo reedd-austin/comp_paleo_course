@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTB Fossil Database</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 0 20px;
+            color: #2c2c2c;
+            background: #faf8f5;
+        }
+        h1 {
+            font-size: 1.6rem;
+            font-weight: normal;
+            border-bottom: 1px solid #c8b89a;
+            padding-bottom: 10px;
+            margin-bottom: 6px;
+        }
+        .subtitle {
+            color: #7a6a52;
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+        .table-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .table-card {
+            background: #fff;
+            border: 1px solid #ddd4c2;
+            border-radius: 4px;
+            padding: 20px;
+        }
+        .table-card h2 {
+            font-size: 1rem;
+            margin: 0 0 12px 0;
+            color: #5a4a32;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+        .table-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .table-card li {
+            margin-bottom: 8px;
+        }
+        .table-card a {
+            color: #5a7a5a;
+            text-decoration: none;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 0.9rem;
+        }
+        .table-card a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            font-size: 0.8rem;
+            color: #aaa;
+            border-top: 1px solid #e0d8cc;
+            padding-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>OTB Fossil Database</h1>
+    <p class="subtitle">Omo–Turkana Basin · 1,243 specimens · 3 tables</p>
+
+    <div class="table-grid">
+
+        <div class="table-card">
+            <h2>Taxa</h2>
+            <ul>
+                <li><a href="/taxa">View all taxa</a></li>
+                <li><a href="/taxa/new">Add a taxon</a></li>
+            </ul>
+        </div>
+
+        <div class="table-card">
+            <h2>Localities</h2>
+            <ul>
+                <li><a href="/localities">View all localities</a></li>
+                <li><a href="/localities/new">Add a locality</a></li>
+            </ul>
+        </div>
+
+        <div class="table-card">
+            <h2>Fossils</h2>
+            <ul>
+                <li><a href="/fossils">View all fossils</a></li>
+                <li><a href="/fossils/new">Add a fossil</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer>
+        Reed, Marchal, Coco &amp; Prat (2026) &middot; Computational Paleobiology
+    </footer>
+
+</body>
+</html>

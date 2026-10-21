@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Localities — OTB{% endblock %}
+
+{% block content %}
+<h1>Localities</h1>
+<a class="add-link" href="{{ url_for('new_locality') }}">+ Add locality</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Place</th>
+            <th>Formation</th>
+            <th>Country</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for loc in localities %}
+        <tr>
+            <td>{{ loc['locality_id'] }}</td>
+            <td>{{ loc['place'] }}</td>
+            <td>{{ loc['formation'] or '—' }}</td>
+            <td>{{ loc['country'] }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" style="color:#aaa;">No localities yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

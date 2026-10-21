@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Fossils — OTB{% endblock %}
+
+{% block content %}
+<h1>Fossils</h1>
+<a class="add-link" href="{{ url_for('new_fossil') }}">+ Add fossil</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Catalog #</th>
+            <th>Taxon</th>
+            <th>Locality</th>
+            <th>Earliest age (Ma)</th>
+            <th>Latest age (Ma)</th>
+            <th>Verbatim age</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fossil in fossils %}
+        <tr>
+            <td>{{ fossil['catalog_number'] }}</td>
+            <td>
+                {% if fossil['scientific_name'] %}
+                    <em>{{ fossil['scientific_name'] }}</em>
+                {% else %}
+                    <span style="color:#aaa;">indet.</span>
+                {% endif %}
+            </td>
+            <td>{{ fossil['place'] or '—' }}</td>
+            <td>{{ fossil['earliest_chronometric_age'] or '—' }}</td>
+            <td>{{ fossil['latest_chronometric_age'] or '—' }}</td>
+            <td>{{ fossil['verbatim_chronometric_age'] or '—' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" style="color:#aaa;">No fossils yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

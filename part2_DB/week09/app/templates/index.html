@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}OTB Fossil Database{% endblock %}
+
+{% block content %}
+<h1>OTB Fossil Database</h1>
+<p style="color:#7a6a52; font-size:0.9rem; margin-top:-16px; margin-bottom:32px;">
+    Omo–Turkana Basin &middot; 1,243 specimens &middot; 3 tables
+</p>
+
+<div class="table-grid">
+    <div class="table-card">
+        <h2>Taxa</h2>
+        <ul>
+            <li><a href="{{ url_for('list_taxa') }}">View all taxa</a></li>
+            <li><a href="{{ url_for('new_taxon') }}">Add a taxon</a></li>
+        </ul>
+    </div>
+
+    <div class="table-card">
+        <h2>Localities</h2>
+        <ul>
+            <li><a href="{{ url_for('list_localities') }}">View all localities</a></li>
+            <li><a href="{{ url_for('new_locality') }}">Add a locality</a></li>
+        </ul>
+    </div>
+
+    <div class="table-card">
+        <h2>Fossils</h2>
+        <ul>
+            <li><a href="{{ url_for('list_fossils') }}">View all fossils</a></li>
+            <li><a href="{{ url_for('new_fossil') }}">Add a fossil</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

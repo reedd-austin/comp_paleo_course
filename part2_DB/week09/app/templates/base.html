@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}OTB Fossil Database{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+    <span class="brand">OTB Fossils</span>
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('list_taxa') }}">Taxa</a>
+    <a href="{{ url_for('list_localities') }}">Localities</a>
+    <a href="{{ url_for('list_fossils') }}">Fossils</a>
+</nav>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    Reed, Marchal, Coco &amp; Prat (2026) &middot; Computational Paleobiology
+</footer>
+
+</body>
+</html>

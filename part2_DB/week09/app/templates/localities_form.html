@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Locality — OTB{% endblock %}
+
+{% block content %}
+<h1>Add Locality</h1>
+
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
+
+<form method="post">
+    <div class="field">
+        <label for="place">Place</label>
+        <input type="text" id="place" name="place"
+               placeholder="e.g. Koobi Fora" required>
+    </div>
+
+    <div class="field">
+        <label for="formation">
+            Formation <span class="optional">(optional)</span>
+        </label>
+        <input type="text" id="formation" name="formation"
+               placeholder="e.g. Koobi Fora Formation">
+    </div>
+
+    <div class="field">
+        <label for="country">Country</label>
+        <select id="country" name="country">
+            <option value="Kenya" selected>Kenya</option>
+            <option value="Ethiopia">Ethiopia</option>
+            <option value="Tanzania">Tanzania</option>
+            <option value="Uganda">Uganda</option>
+            <option value="Eritrea">Eritrea</option>
+            <option value="Djibouti">Djibouti</option>
+            <option value="Somalia">Somalia</option>
+        </select>
+    </div>
+
+    <button type="submit">Save locality</button>
+    &nbsp; <a href="{{ url_for('list_localities') }}">Cancel</a>
+</form>
+{% endblock %}

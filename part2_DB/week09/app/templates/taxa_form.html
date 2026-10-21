@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Taxon — OTB{% endblock %}
+
+{% block content %}
+<h1>Add Taxon</h1>
+
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
+
+<form method="post">
+    <div class="field">
+        <label for="scientific_name">Scientific name</label>
+        <input type="text" id="scientific_name" name="scientific_name"
+               placeholder="e.g. Homo erectus" required>
+    </div>
+
+    <div class="field">
+        <label for="identification_qualifier">
+            Qualifier <span class="optional">(optional)</span>
+        </label>
+        <input type="text" id="identification_qualifier" name="identification_qualifier"
+               placeholder="e.g. cf., aff., indet.">
+    </div>
+
+    <button type="submit">Save taxon</button>
+    &nbsp; <a href="{{ url_for('list_taxa') }}">Cancel</a>
+</form>
+{% endblock %}

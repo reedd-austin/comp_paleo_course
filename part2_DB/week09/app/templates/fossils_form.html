@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Fossil — OTB{% endblock %}
+
+{% block content %}
+<h1>Add Fossil</h1>
+
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
+
+<form method="post">
+    <div class="field">
+        <label for="catalog_number">Catalog number</label>
+        <input type="text" id="catalog_number" name="catalog_number"
+               placeholder="e.g. KNM-ER 1470" required>
+    </div>
+
+    <div class="field">
+        <label for="taxon_id">
+            Taxon <span class="optional">(optional — leave blank if unidentified)</span>
+        </label>
+        <select id="taxon_id" name="taxon_id">
+            <option value="">— unidentified —</option>
+            {% for taxon in taxa %}
+            <option value="{{ taxon['taxon_id'] }}">
+                {{ taxon['scientific_name'] }}
+                {% if taxon['identification_qualifier'] %}
+                    ({{ taxon['identification_qualifier'] }})
+                {% endif %}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="field">
+        <label for="locality_id">Locality</label>
+        <select id="locality_id" name="locality_id" required>
+            <option value="">— select locality —</option>
+            {% for loc in localities %}
+            <option value="{{ loc['locality_id'] }}">{{ loc['place'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="field">
+        <label for="earliest_chronometric_age">
+            Earliest age (Ma) <span class="optional">(optional)</span>
+        </label>
+        <input type="number" step="0.001" id="earliest_chronometric_age"
+               name="earliest_chronometric_age" placeholder="e.g. 1.88">
+    </div>
+
+    <div class="field">
+        <label for="latest_chronometric_age">
+            Latest age (Ma) <span class="optional">(optional)</span>
+        </label>
+        <input type="number" step="0.001" id="latest_chronometric_age"
+               name="latest_chronometric_age" placeholder="e.g. 1.65">
+    </div>
+
+    <div class="field">
+        <label for="verbatim_chronometric_age">
+            Verbatim age <span class="optional">(optional)</span>
+        </label>
+        <input type="text" id="verbatim_chronometric_age"
+               name="verbatim_chronometric_age" placeholder="e.g. 1.88–1.65 Ma">
+    </div>
+
+    <button type="submit">Save fossil</button>
+    &nbsp; <a href="{{ url_for('list_fossils') }}">Cancel</a>
+</form>
+{% endblock %}

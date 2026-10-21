@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Taxa — OTB{% endblock %}
+
+{% block content %}
+<h1>Taxa</h1>
+<a class="add-link" href="{{ url_for('new_taxon') }}">+ Add taxon</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Scientific name</th>
+            <th>Qualifier</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for taxon in taxa %}
+        <tr>
+            <td>{{ taxon['taxon_id'] }}</td>
+            <td><em>{{ taxon['scientific_name'] }}</em></td>
+            <td>{{ taxon['identification_qualifier'] or '—' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="3" style="color:#aaa;">No taxa yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
