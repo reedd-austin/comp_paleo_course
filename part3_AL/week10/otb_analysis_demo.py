@@ -56,69 +56,28 @@ print(filtered)
 for i, name in enumerate(['Australopithecus', 'Paranthropus', 'Homo']):
     print(i, name)
 
+locality_names = ['Koobi Fora', 'Kanapoi', 'Ileret', 'Allia Bay', 'Kalam Area']
+counts = [294, 188, 232, 54, 6]
+for loc, count in zip(locality_names, counts):
+    print(f"{loc}: {count}")
 
-# %% [markdown]
-# ## Why virtual environments matter
-#
-# Virtual environments provide a way to control the environment or context in 
-# which an applicaiton or project runs. It allows each project to have a unique
-# and stable set of installed libraries that do not interfere with libraries 
-# used by other projects.
+specimens = pd.DataFrame({
+    'specimen_id': ['OTB-001', 'OTB-002', 'OTB-003', 'OTB-004'],
+    'taxon':       ['Australopithecus', 'Paranthropus', 'Homo', 'Australopithecus'],
+    'locality':    ['FLK', 'KBS', 'FLK', 'Natron'],
+    'age_ma':      [1.87, 2.35, 1.65, 2.10],
+    'element':     ['femur', 'mandible', 'cranium', 'tibia'],
+})
 
-# %% [markdown]
-# ## Part 1.5 Deliverables 
-# Demonstrate that numpy and pandas are importable in this environement.pd
-# Print their version numbers.
+def summarize(*fields, decimals=2):
+    for f in fields:
+        print(f"{f}: {round(specimens[f].mean(), decimals)}")
 
-# %% Demonstrate numpy and pandas are importable in this environment
-print(f"numpy version: {np.__version__}\npandas version: {pd.__version__}")
+summarize('age_ma')
 
-# %% [markdown] 
-# Demonstrate python language fundamentals
+# Lambda functions
+specimens['epoch'] = specimens['age_ma'].apply(lambda x: 'Pleistocene' if x < 2.6 else 'Pliocene')
 
-# %% Demonstrate python fundamentsal 
-# List comprehension
-letters = [chr(i) for i in range(ord('a'), ord('z') + 1)]
-print("\nA list of letters created with list comprehensions")
-print(letters)
-
-# Dictionary comprehension
-letter_indexes = {letter: ord(letter)-96 for letter in letters}
-print("\nA numerically keyed dictionary of letters created with dictionary comprehension ")
-print(letter_indexes)
-
-alphabet_tuple = (
-    ('a', 'apple'),
-    ('b', 'butterfly'),
-    ('c', 'carbon'),
-    ('d', 'dinosaur')
-)
-alphabet = {letter: word for letter, word in alphabet_tuple}
-print("\nAn alphabet mnemonic created with dictionary comprehension on a tuple")
-print(alphabet)
-
-# Enumerate
-print("\nAn example of enumeration over the letters. Note: python starts counting at 0")
-for i, letter in enumerate(letters):
-    print(i, letter)
-
-numbers = range(1,27)
-
-# Zip
-print("\nAn example of zipping the letters list and numbers list together.")
-print(letters)
-print(numbers)
-
-for letter, number in zip (letters, numbers):
-    print(f"{letter} is letter number {number}")
-
-# Variable numbers of positional and keyword arguments
-def myfunc(*positional_arguments, **keyword_arguments):
-    print("Positional arguments passed:")
-    print("args:", positional_arguments)
-    i=1
-    print("Keyword arguments passed")
-    for key, value in keyword_arguments.item
 
 # %% [markdown]
 # # Part 2 - Numpy
@@ -186,14 +145,6 @@ row_means = measurements.mean(axis=1)   # shape (3,)
 
 # %% [markdown]
 # ## 2.5 Deliverables
-
-# %% Deliverables
-ex_ages_list = [1.54, 1.88, 1.78, 2.11, 2.0, 2.33, 1.95, 3.38, 3.36, 3.24]
-ex_ages = np.array(ex_ages_list)
-print(ex_ages)
-print(ex_ages.dtype)
-print(ex_ages.shape)
-print(ex_ages.ndim)
 
 # %% [markdown]
 # # Part 3 Pandas
@@ -284,7 +235,7 @@ df_exp['taxon_short'] = df_exp['scientific_name'].str.split().str[0]   # genus o
 # %% [markdown]
 # ## 3.6 Sorting and Summarizing
 
-# %% Sorign and summarizing
+# %% Sorting and summarizing
 # Sort by a column
 df_exp = df_exp.sort_values('avg_age', ascending=False)
 
