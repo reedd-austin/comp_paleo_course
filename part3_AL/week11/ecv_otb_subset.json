@@ -1,0 +1,27 @@
+{
+  "source": "Du et al. (2026). Endocranial volume estimates for Plio-Pleistocene hominins.",
+  "units": "cm3",
+  "region": "Omo-Turkana Basin",
+  "specimens": [
+    {"ID": "KNM-WT 17000",   "taxon": "Paranthropus aethiopicus", "grade": "mega",    "ecv_median_cm3": 410.0, "n_estimates": 1, "age_mid_Ma": 2.526, "age_lo_Ma": 2.477, "age_hi_Ma": 2.575},
+    {"ID": "Omo L.338y-6",   "taxon": "Paranthropus aethiopicus", "grade": "mega",    "ecv_median_cm3": 427.0, "n_estimates": 1, "age_mid_Ma": 2.350, "age_lo_Ma": 2.290, "age_hi_Ma": 2.410},
+    {"ID": "Omo 323-1976-896","taxon": "Paranthropus boisei",     "grade": "mega",    "ecv_median_cm3": 490.0, "n_estimates": 1, "age_mid_Ma": 2.200, "age_lo_Ma": 2.004, "age_hi_Ma": 2.396},
+    {"ID": "KNM-ER 13750",   "taxon": "Paranthropus boisei",     "grade": "mega",    "ecv_median_cm3": 500.0, "n_estimates": 3, "age_mid_Ma": 1.880, "age_lo_Ma": 1.830, "age_hi_Ma": 1.930},
+    {"ID": "KNM-ER 407",     "taxon": "Paranthropus boisei",     "grade": "mega",    "ecv_median_cm3": 474.0, "n_estimates": 2, "age_mid_Ma": 1.850, "age_lo_Ma": 1.850, "age_hi_Ma": 1.850},
+    {"ID": "KNM-ER 23000",   "taxon": "Paranthropus aethiopicus","grade": "mega",    "ecv_median_cm3": 491.0, "n_estimates": 1, "age_mid_Ma": 1.784, "age_lo_Ma": 1.700, "age_hi_Ma": 1.868},
+    {"ID": "KNM-WT 17400",   "taxon": "Paranthropus boisei",     "grade": "mega",    "ecv_median_cm3": 400.0, "n_estimates": 3, "age_mid_Ma": 1.770, "age_lo_Ma": 1.670, "age_hi_Ma": 1.870},
+    {"ID": "KNM-ER 1470",    "taxon": "Homo habilis",            "grade": "trans",   "ecv_median_cm3": 756.2, "n_estimates": 2, "age_mid_Ma": 1.959, "age_lo_Ma": 1.868, "age_hi_Ma": 2.050},
+    {"ID": "KNM-ER 1590",    "taxon": "Homo habilis",            "grade": "trans",   "ecv_median_cm3": 787.5, "n_estimates": 2, "age_mid_Ma": 1.825, "age_lo_Ma": 1.800, "age_hi_Ma": 1.850},
+    {"ID": "KNM-ER 1813",    "taxon": "Homo habilis",            "grade": "trans",   "ecv_median_cm3": 500.0, "n_estimates": 3, "age_mid_Ma": 1.725, "age_lo_Ma": 1.550, "age_hi_Ma": 1.900},
+    {"ID": "KNM-ER 1805",    "taxon": "Homo habilis",            "grade": "trans",   "ecv_median_cm3": 582.0, "n_estimates": 1, "age_mid_Ma": 1.725, "age_lo_Ma": 1.600, "age_hi_Ma": 1.850},
+    {"ID": "KNM-ER 3732",    "taxon": "Homo erectus",            "grade": "pre.mod", "ecv_median_cm3": 737.5, "n_estimates": 2, "age_mid_Ma": 1.907, "age_lo_Ma": 1.868, "age_hi_Ma": 1.945},
+    {"ID": "KNM-ER 3733",    "taxon": "Homo erectus",            "grade": "pre.mod", "ecv_median_cm3": 781.5, "n_estimates": 2, "age_mid_Ma": 1.630, "age_lo_Ma": 1.480, "age_hi_Ma": 1.780},
+    {"ID": "KNM-ER 406",     "taxon": "Paranthropus boisei",     "grade": "mega",    "ecv_median_cm3": 500.0, "n_estimates": 1, "age_mid_Ma": 1.630, "age_lo_Ma": 1.560, "age_hi_Ma": 1.700},
+    {"ID": "KNM-ER 732",     "taxon": "Paranthropus boisei",     "grade": "mega",    "ecv_median_cm3": 483.0, "n_estimates": 2, "age_mid_Ma": 1.630, "age_lo_Ma": 1.560, "age_hi_Ma": 1.700},
+    {"ID": "KNM-ER 3883",    "taxon": "Homo erectus",            "grade": "pre.mod", "ecv_median_cm3": 794.5, "n_estimates": 2, "age_mid_Ma": 1.570, "age_lo_Ma": 1.413, "age_hi_Ma": 1.727},
+    {"ID": "KNM-ER 42700",   "taxon": "Homo erectus",            "grade": "pre.mod", "ecv_median_cm3": 691.0, "n_estimates": 1, "age_mid_Ma": 1.567, "age_lo_Ma": 1.527, "age_hi_Ma": 1.607},
+    {"ID": "KNM-WT 15000",   "taxon": "Homo erectus",            "grade": "pre.mod", "ecv_median_cm3": 909.0, "n_estimates": 1, "age_mid_Ma": 1.555, "age_lo_Ma": 1.470, "age_hi_Ma": 1.640},
+    {"ID": "KGA-10-525",     "taxon": "Paranthropus boisei",     "grade": "mega",    "ecv_median_cm3": 545.0, "n_estimates": 1, "age_mid_Ma": 1.420, "age_lo_Ma": 1.410, "age_hi_Ma": 1.430},
+    {"ID": "KNM-OL 45500",   "taxon": "Homo erectus",            "grade": "pre.mod", "ecv_median_cm3": 715.0, "n_estimates": 1, "age_mid_Ma": 0.882, "age_lo_Ma": 0.790, "age_hi_Ma": 0.974}
+  ]
+}
