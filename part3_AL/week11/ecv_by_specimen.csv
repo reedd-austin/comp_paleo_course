@@ -1,0 +1,95 @@
+ID,taxon,grade,ecv_median_cm3,n_estimates,age_mid_Ma,age_lo_Ma,age_hi_Ma
+AL 162-28,Au. afarensis,archaic,383.8,2,3.22,3.2,3.24
+AL 333-105,Au. afarensis,archaic,371.5,2,3.22,3.2,3.24
+AL 333-45,Au. afarensis,archaic,492.5,2,3.22,3.2,3.24
+AL 822-1,Au. afarensis,archaic,385.0,1,3.1,3.1,3.1
+AL 288-1,Au. afarensis,archaic,387.5,1,3.075,2.95,3.2
+AL 444-2,Au. afarensis,archaic,550.0,1,3.075,2.95,3.2
+Taung-1,Au. africanus,archaic,431.0,3,2.805,2.58,3.03
+MLD 1,Au. africanus,archaic,510.0,1,2.715,2.58,2.85
+MLD 37/38,Au. africanus,archaic,437.5,4,2.58,2.58,2.58
+KNM-WT 17000,P. aethiopicus,mega,410.0,1,2.526,2.477,2.575
+BOU-VP-12/130,Au. garhi,mega,450.0,1,2.473,2.45,2.496
+Omo L.338y-6,P. aethiopicus,mega,427,1,2.35,2.29,2.41
+Sts 19/58,Au. africanus,archaic,530.0,3,2.3,2,2.6
+Sts 60,Au. africanus,archaic,414.0,4,2.3,2,2.6
+Sts 71,Au. africanus,archaic,428.0,4,2.3,2,2.6
+Stw 505,Au. africanus,archaic,561.5,4,2.3,2,2.6
+Type 2,Au. africanus,archaic,493.5,2,2.3,2,2.6
+Omo 323-1976-896,P. boisei,mega,490,1,2.2,2.004,2.396
+Sts 5,Au. africanus,archaic,482.0,3,2.01,1.912,2.108
+SK 1585,P. robustus,mega,476.0,3,1.98,1.6,2.36
+SK 46,P. robustus,mega,800,1,1.98,1.6,2.36
+SK 48,P. robustus,mega,750.0,1,1.98,1.6,2.36
+SK 54,P. robustus,mega,500.0,1,1.98,1.6,2.36
+SK 859,P. robustus,mega,465.0,1,1.98,1.6,2.36
+MH1,Au. sediba,archaic,420.0,1,1.977,1.973,1.981
+KNM-ER 1470,H. habilis,trans,756.2,2,1.959,1.868,2.05
+OH 24,H. habilis,trans,590.0,3,1.943,1.848,2.038
+KNM-ER 3732,H. erectus,pre.mod,737.5,2,1.907,1.868,1.945
+TM 1517,P. robustus,mega,625.0,2,1.9,1.9,1.9
+KNM-ER 13750,P. boisei,mega,500.0,3,1.88,1.83,1.93
+KNM-ER 407,P. boisei,mega,474.0,2,1.85,1.85,1.85
+OH 5,P. boisei,mega,511.2,4,1.844,1.839,1.848
+OH 7,H. habilis,trans,681.0,6,1.844,1.839,1.848
+KNM-ER 1590,H. habilis,trans,787.5,2,1.825,1.8,1.85
+KNM-ER 23000,P. aethiopicus,mega,491.0,1,1.784,1.7,1.868
+KNM-WT 17400,P. boisei,mega,400.0,3,1.77,1.67,1.87
+D2280,H. erectus,pre.mod,782.5,2,1.765,1.76,1.77
+D2282,H. erectus,pre.mod,647.5,2,1.765,1.76,1.77
+D2700,H. erectus,pre.mod,600.0,1,1.765,1.76,1.77
+D3444,H. erectus,pre.mod,637.5,2,1.765,1.76,1.77
+D4500,H. erectus,pre.mod,546.0,1,1.765,1.76,1.77
+KNM-ER 1805,H. habilis,trans,582.0,1,1.725,1.6,1.85
+KNM-ER 1813,H. habilis,trans,500.0,3,1.725,1.55,1.9
+Sangiran 31,H. erectus,pre.mod,700,1,1.7,1.6,1.8
+Sangiran 4,H. erectus,pre.mod,894.0,2,1.7,1.6,1.8
+KNM-ER 3733,H. erectus,pre.mod,781.5,2,1.63,1.48,1.78
+KNM-ER 406,P. boisei,mega,500.0,1,1.63,1.56,1.7
+KNM-ER 732,P. boisei,mega,483.0,2,1.63,1.56,1.7
+Mojokerto 1,H. erectus,pre.mod,800,1,1.62,1.43,1.81
+KNM-ER 3883,H. erectus,pre.mod,794.5,2,1.57,1.413,1.727
+KNM-ER 42700,H. erectus,pre.mod,691.0,1,1.567,1.527,1.607
+KNM-WT 15000,H. erectus,pre.mod,909.0,1,1.555,1.47,1.64
+Trinil 2,H. erectus,pre.mod,930.0,5,1.535,1.47,1.6
+Sangiran 38,H. erectus,pre.mod,875,1,1.525,1.47,1.58
+OH 13,H. habilis,trans,652.5,4,1.476,1.15,1.803
+OH 16,H. habilis,trans,638.0,1,1.476,1.15,1.803
+OH 9,H. erectus,pre.mod,1067.0,3,1.476,1.15,1.803
+KGA-10-525,P. boisei,mega,545.0,1,1.42,1.41,1.43
+Bukuran,H. erectus,pre.mod,916.0,1,1.15,0.8,1.5
+Tjg-1993.05,H. erectus,pre.mod,857.5,2,1.15,0.8,1.5
+Lantian,H. erectus,pre.mod,780.0,2,1.135,1.07,1.2
+Sangiran 10,H. erectus,pre.mod,855.0,3,1.035,0.8,1.27
+Sangiran 2,H. erectus,pre.mod,814.0,4,1.0,0.98,1.02
+UA 31,H. erectus,pre.mod,995,1,0.992,0.99,0.994
+OH 12,H. erectus,pre.mod,691.5,2,0.965,0.78,1.15
+Sangiran 12,H. erectus,pre.mod,930.0,3,0.935,0.8,1.07
+BOU-VP-2/66,H. erectus,pre.mod,995.0,1,0.921,0.8,1.042
+Sangiran 17,H. erectus,pre.mod,982.0,2,0.91,0.8,1.02
+Sangiran 3,H. erectus,pre.mod,975.0,1,0.91,0.8,1.02
+KNM-OL 45500,H. erectus,pre.mod,715.0,1,0.882,0.79,0.974
+Yunxian,H. erectus,pre.mod,1150.0,1,0.726,0.581,0.87
+Ndutu,H. heidelbergensis,pre.mod,1098,1,0.68,0.37,0.99
+Zhoukoudian II,H. erectus,pre.mod,1012.5,2,0.627,0.504,0.75
+Zhoukoudian III,H. erectus,pre.mod,915.0,2,0.627,0.504,0.75
+Nanjing 1,H. erectus,pre.mod,873.5,2,0.621,0.566,0.676
+Zhoukoudian VI,H. erectus,pre.mod,850.0,1,0.602,0.423,0.78
+Zhoukoudian X,H. erectus,pre.mod,1235.0,2,0.602,0.423,0.78
+Zhoukoudian XI,H. erectus,pre.mod,1017.5,2,0.602,0.423,0.78
+Zhoukoudian XII,H. erectus,pre.mod,1025.0,2,0.602,0.423,0.78
+Atapuerca 5,H. heidelbergensis,pre.mod,1125,1,0.598,0.415,0.78
+Atapuerca 4,H. heidelbergensis,pre.mod,1390,1,0.598,0.415,0.78
+Bodo 1,H. heidelbergensis,pre.mod,1227.5,2,0.595,0.55,0.64
+Ceprano 1,H. heidelbergensis,pre.mod,1057.0,1,0.475,0.35,0.6
+Hexian 1,H. erectus,pre.mod,1025.0,1,0.412,0.363,0.461
+Zhoukoudian V,H. erectus,pre.mod,1300.0,1,0.372,0.245,0.5
+Saldanha 1,H. heidelbergensis,pre.mod,1225.0,1,0.35,0.1,0.6
+Ngandong I,H. erectus,pre.mod,1143.0,5,0.345,0.143,0.546
+Ngandong IX,H. erectus,pre.mod,1135.0,2,0.345,0.143,0.546
+Ngandong V,H. erectus,pre.mod,1284.0,5,0.345,0.143,0.546
+Ngandong VI,H. erectus,pre.mod,1087,5,0.345,0.143,0.546
+Ngandong VII,H. erectus,pre.mod,1046.5,2,0.345,0.143,0.546
+Ngandong X,H. erectus,pre.mod,1055.0,3,0.345,0.143,0.546
+Ngandong XI,H. erectus,pre.mod,1060.0,3,0.345,0.143,0.546
+Ngandong XII,H. erectus,pre.mod,1145.0,1,0.345,0.143,0.546

@@ -34,10 +34,9 @@
 # %% Setup
 import numpy as np
 import pandas as pd
-
-from config import DSN
 from sqlalchemy import create_engine
 
+from config import DSN
 
 print(np.__version__, pd.__version__)
 
@@ -186,7 +185,7 @@ specimens = pd.DataFrame(
 )
 
 # Load a DataFrame from a CSV
-# otb_df = pd.read_csv('otb_fossils.csv')
+otb_csv_df = pd.read_csv('otb_fossils.csv')
 # otb_df = pd.read_csv('otb_fossils.tsv', delimiter='\t')
 
 # Load a DataFrame from PostgreSQL tables
