@@ -34,9 +34,8 @@
 # %% Setup
 import numpy as np
 import pandas as pd
-from sqlalchemy import create_engine
-
 from config import DSN
+from sqlalchemy import create_engine
 
 print(np.__version__, pd.__version__)
 
@@ -162,7 +161,7 @@ specimen_counts = pd.Series(
     index=["FLK", "KBS", "Natron", "Chesowanja", "Turkana"],
 )
 print(specimen_counts["KBS"])  # 187  — label-based access
-print(specimen_counts[2])  # 244  — integer position
+print(specimen_counts.iloc[2])  # 244  — integer position
 print(specimen_counts[specimen_counts > 200])  # boolean filter
 
 counts_2022 = pd.Series({"FLK": 312, "KBS": 187, "Natron": 244})
