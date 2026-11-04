@@ -184,7 +184,7 @@ specimens = pd.DataFrame(
 )
 
 # Load a DataFrame from a CSV
-otb_csv_df = pd.read_csv('otb_fossils.csv')
+otb_csv_df = pd.read_csv('part3_AL/week10/otb_fossils.csv')
 # otb_df = pd.read_csv('otb_fossils.tsv', delimiter='\t')
 
 # Load a DataFrame from PostgreSQL tables
@@ -197,8 +197,8 @@ df_exp = pd.read_sql("SELECT * FROM otb_fossils_export", engine)
 # ## 3.3 Inspection
 
 # %% Inspection
-df.shape  # (rows, columns)
-df.dtypes  # column data types
+print(df.shape)  # (rows, columns)
+print(df.dtypes)  # column data types
 df.head(10)  # first 10 rows
 df.tail(5)  # last 5 rows
 df.info()  # non-null counts + dtypes
