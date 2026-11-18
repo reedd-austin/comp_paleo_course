@@ -1,0 +1,216 @@
+---
+title: "Hominin ECV Analysis"
+author: "Your Name"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+---
+
+# Week 13 - Statistical Modeling and Quarto
+
+## Import Data
+
+Import data from week 11 ecv_by_specimen.csv and print the dimensions and first five rows.
+
+```{python}
+#| label: setup
+
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import patsy
+import statsmodels.formula.api as smf
+from patsy.contrasts import Poly
+from plotnine import *
+
+# Locate the project root (the folder containing _quarto.yml) so the
+# data path works whether we render from the project root, from week13,
+# or run cells interactively in an IDE.
+root = next(p for p in [Path.cwd(), *Path.cwd().parents]
+            if (p / '_quarto.yml').exists())
+path2ecv = root / 'part3_AL' / 'week11' / 'ecv_by_specimen.csv'
+ecv = pd.read_csv(path2ecv)
+
+# Grade is a ordered categorical variable. 
+# We need to set the ordering or else it will default
+# to alphabetical. 
+grade_order = ['archaic', 'mega', 'trans', 'pre.mod']
+ecv['grade'] = pd.Categorical(ecv['grade'], 
+    categories=grade_order, 
+    ordered=True)
+
+print(ecv.shape)
+ecv.head()
+```
+
+## Patsy
+
+Patsy (https://patsy.readthedocs.io) is a Python library for describing statistical models using a compact formula language. If you have used R, the syntax will feel familiar because Patsy was directly inspired by R's formula interface.
+
+### 2.1 Patsy Design Matrices
+
+```{python}
+#| label: design-matrix-simple
+y, X = patsy.dmatrices('ecv_median_cm3 ~ age_mid_Ma', data=ecv, return_type='dataframe')
+print('Response (y):')
+print(y.head())
+print('\nDesign matrix (X):')
+print(X.head())
+print('\nX columns:', X.columns.tolist())
+```
+
+### 2.2 Build a multiple design matrix
+
+```{python}
+#| label: design-matrix-multiple
+
+y2, X2 = patsy.dmatrices('ecv_median_cm3 ~ age_mid_Ma + C(grade)', data=ecv, return_type='dataframe')
+print('X2 shape:', X2.shape)
+print('X2 columns:', X2.columns.tolist())
+print(X2.head(8))
+```
+
+### 2.3 Inspect the encoding
+
+Check which rows have a 1 in the `C(grade)[T.Homo_erectus]` column (or whichever dummy column appears for a grade you recognize)
+
+```{python}
+#| label: inspect-encoding
+
+col = [c for c in X2.columns if 'T.' in c][0]
+print(f'Rows where {col} == 1:')
+print(ecv.loc[X2[col] == 1, ['taxon', 'grade', 'ecv_median_cm3', 'age_mid_Ma']].head())
+```
+
+### 2.4 Build a model with polynomial contrast
+
+Categorical (dummy) coding asks: “How does each group differ from a baseline?”
+
+One group is the reference; coefficients are deviations from it Makes no assumption about order Best when categories are nominal or when you want pairwise comparisons
+
+Polynomial contrast coding asks: “What is the shape of the trend across the ordered sequence?”
+
+No reference group; coefficients describe linear, quadratic, cubic trends Requires a meaningful order Best when categories have a natural progression and you expect a directional effect
+
+For your evolutionary grades (archaic → mega → trans → pre.mod), polynomial coding is more appropriate because the order is theoretically meaningful and the scientifically interesting question is whether ECV increases monotonically across the sequence — not whether each grade differs from archaic specifically.
+
+```{python}
+#| label: design-matrix-multiple-poly
+
+y3, X3 = patsy.dmatrices('ecv_median_cm3 ~ age_mid_Ma + C(grade, Poly())', data=ecv, return_type='dataframe')
+print('X3 shape:', X3.shape)
+print('X3 columns:', X3.columns.tolist())
+print(X3.head(8))
+```
+
+## Part 3 OLS Regression
+
+### 3.1 Simple regression: ECV \~ age
+
+```{python}
+#| label: ols-simple
+model1 = smf.ols('ecv_median_cm3 ~ age_mid_Ma', data=ecv).fit()
+print(model1.summary())
+```
+
+### 3.2 Multiple regression: ECV \~ age + grade
+
+Add grade as a predictor variable.
+
+```{python}
+#| label: ols-multiple
+model2 = smf.ols('ecv_median_cm3 ~ age_mid_Ma + C(grade)', data=ecv).fit()
+print(model2.summary())
+```
+
+### 3.3 Residual diagnostic plot
+
+A key OLS assumption is that residuals are randomly scattered around zero. Plot fitted values against residuals to check:
+
+```{python}
+#| label: fig-residuals
+#| fig-cap: "Residuals vs. fitted values for the multiple regression model"
+#| fig-width: 6
+#| fig-height: 4
+
+ecv_diag = ecv.copy()
+ecv_diag['fitted'] = model2.fittedvalues
+ecv_diag['resid'] = model2.resid
+
+(
+    ggplot(ecv_diag, aes(x='fitted', y='resid'))
+    + geom_point(alpha=0.5)
+    + geom_hline(yintercept=0, color='red', linetype='dashed')
+    + labs(x='Fitted values', y='Residuals',
+           title='Residuals vs. Fitted')
+    + theme_bw()
+)
+```
+
+### 3.4 Interaction term
+
+Fit a model with an interaction between age and grade:
+
+```{python}
+#| label: ols-interaction
+
+model3 = smf.ols('ecv_median_cm3 ~ age_mid_Ma * C(grade)', data=ecv).fit()
+print(model3.summary())
+```
+
+## Part 4 Figures and Inline Results in Quarto
+
+### 4.1 A polished figure with a cross-reference
+
+Add a publication-quality figure showing observed ECV vs. age, with the fitted line from model1 overlaid:
+
+```{python}
+#| label: fig-ecv-fitted
+#| fig-cap: "Observed ECV and OLS fitted line (ecv_median_cm3 ~ age). Points colored by grade."
+#| fig-width: 7
+#| fig-height: 4.5
+
+pred = pd.DataFrame({'age_mid_Ma': np.linspace(ecv['age_mid_Ma'].min(),
+                                                ecv['age_mid_Ma'].max(), 200)})
+pred['ecv_pred'] = model1.predict(pred)
+
+(
+    ggplot(ecv, aes(x='age_mid_Ma', y='ecv_median_cm3', color='grade', size='n_estimates'))
+    + geom_point(alpha=0.6)
+    + geom_line(aes(x='age_mid_Ma', y='ecv_pred'), data=pred,
+                color='black', size=1, inherit_aes=False)
+    #+ geom_smooth(method='lm', color='blue', linetype='dashed')
+    + scale_x_reverse()
+    + labs(x='Age (Ma)', y='ECV (cc)', color='Grade',
+           title='Hominin ECV through time')
+    + theme_bw()
+)
+```
+
+### 4.2 Inline Python results
+
+The simple regression explains `{python} round(model1.rsquared, 3)` of the variance in ECV. For every additional million years into the past, ECV decreases by `{python} abs(round(model1.params['age_mid_Ma'], 1))` cc on average (p = `{python} round(model1.pvalues['age_mid_Ma'], 4)`).
+
+### 4.3 A model comparison table
+
+Create a summary table comparing the three models from Part 3:
+
+```{python}
+#| label: tbl-model-comparison
+#| tbl-cap: "Comparison of three OLS models for ECV"
+
+comparison = pd.DataFrame({
+    'Model': ['ecv_median_cm3 ~ age', 'ecv_median_cm3 ~ age + C(grade)', 'ecv_median_cm3 ~ age * C(grade)'],
+    'R-squared': [round(m.rsquared, 3) for m in [model1, model2, model3]],
+    'Adj. R-squared': [round(m.rsquared_adj, 3) for m in [model1, model2, model3]],
+    'AIC': [round(m.aic, 1) for m in [model1, model2, model3]],
+    'N': [int(m.nobs) for m in [model1, model2, model3]]
+})
+comparison
+```

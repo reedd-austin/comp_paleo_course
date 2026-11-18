@@ -19,7 +19,7 @@ fossils = pd.read_sql(
     """, engine
 )
 
-path = os.path.join("part3_AL/week11/ecv_by_specimen.csv")
+path = os.path.join("part3_AL", "week11", "ecv_by_specimen.csv")
 ecv_full = pd.read_csv(path)
 
 # Grade is a ordered categorical variable. 
